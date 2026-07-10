@@ -1,5 +1,5 @@
 modLoader="java"
-loaderVersion="[47,)"
+loaderVersion="[*]"
 license="MIT"
 
 [[mods]]
