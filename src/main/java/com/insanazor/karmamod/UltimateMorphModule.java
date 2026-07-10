@@ -382,4 +382,12 @@ public class UltimateMorphModule {
 
         // ÖZEL BAŞLANGIÇ EŞYALARI VE CANLAR
         float maxHealth = 20.0F;
-        if (chosenMob.equals("DEMIR_GOLEM")) maxH
+                if (chosenMob.equals("DEMIR_GOLEM")) {
+            maxHealth = 100.0;
+        }
+
+        player.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.MAX_HEALTH).setBaseValue(maxHealth);
+        player.setHealth((float)maxHealth);
+    }
+}
+
