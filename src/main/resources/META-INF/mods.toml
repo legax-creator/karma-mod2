@@ -1,0 +1,11 @@
+modLoader="java"
+loaderVersion="[45,)"
+license="MIT"
+
+[[mods]]
+modId="karmamod"  # Java kodundaki isimle birebir eşitlendi!
+version="1.0.0"
+displayName="Ultimate Morph Module"
+authors="Sen"
+description="Canlılara dönüşmeyi sağlayan harika karmamod eklentisi."
+
