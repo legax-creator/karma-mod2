@@ -1,11 +1,25 @@
 modLoader="java"
-loaderVersion="[*]"
+loaderVersion="[45,)"
 license="MIT"
 
 [[mods]]
-modId="karmamod"  # Java kodundaki isimle birebir eşitlendi!
+modId="karmamod"
 version="1.0.0"
 displayName="Ultimate Morph Module"
 authors="Sen"
 description="Canlılara dönüşmeyi sağlayan harika karmamod eklentisi."
 
+[[dependencies.karmamod]]
+    modId="forge"
+    mandatory=true
+    versionRange="[45,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.karmamod]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1]"
+    ordering="NONE"
+    side="BOTH"
+    
