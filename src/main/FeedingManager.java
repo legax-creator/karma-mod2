@@ -1,4 +1,4 @@
-package com.karma.karmamod;
+package com.karmamod;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
