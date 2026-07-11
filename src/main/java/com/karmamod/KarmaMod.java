@@ -1,4 +1,4 @@
-       package com.karma.karmamod;
+       package com.karmamod;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
