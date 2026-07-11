@@ -1,25 +1,27 @@
-modLoader="javafml"
-loaderVersion="[47,)"
-license="MIT"
+modLoader = "javafml"
+loaderVersion = "[47,)"
+license = "All Rights Reserved"
 
 [[mods]]
-modId="karmamod"
-displayName="Karma Mod"
-version="1.0.0"
-authors="Sen"
-description="Karma Modu"
+modId = "karmamod"
+version = "1.0.0"
+displayName = "Karma Mod"
+credits = "İnsanazor"
+authors = "İnsanazor"
+description = '''
+Kurbağalardan Warden'a kadar tüm dönüşüm mekaniklerini ve kurallarını içeren mod.
+'''
 
 [[dependencies.karmamod]]
-    modId="forge"
-    mandatory=true
-    versionRange="[47,)"
-    ordering="NONE"
-    side="BOTH"
+modId = "forge"
+mandatory = true
+versionRange = "[47,)"
+ordering = "NONE"
+side = "BOTH"
 
 [[dependencies.karmamod]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.20.1]"
-    ordering="NONE"
-    side="BOTH"
-    
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20.1,1.20.2)"
+ordering = "NONE"
+side = "BOTH"
