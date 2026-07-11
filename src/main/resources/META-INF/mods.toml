@@ -1,5 +1,5 @@
 modLoader="java"
-loaderVersion="[45,)"
+loaderVersion="[47,)"
 license="MIT"
 
 [[mods]]
@@ -12,7 +12,7 @@ description="Canlılara dönüşmeyi sağlayan harika karmamod eklentisi."
 [[dependencies.karmamod]]
     modId="forge"
     mandatory=true
-    versionRange="[45,)"
+    versionRange="[47,)"
     ordering="NONE"
     side="BOTH"
 
