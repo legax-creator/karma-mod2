@@ -1,4 +1,4 @@
-    package com.karma.karmamod;
+       package com.karma.karmamod;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -48,7 +48,6 @@ public class KarmaMod {
         if (event.phase == TickEvent.Phase.END && event.player instanceof ServerPlayer player) {
             player.setMaxUpStep(1.25F);
             
-            // 2 Slot Envanter Sınırı
             for (int i = 2; i < player.getInventory().getContainerSize(); i++) {
                 if (!player.getInventory().getItem(i).isEmpty()) {
                     player.drop(player.getInventory().getItem(i), true, false);
@@ -74,7 +73,6 @@ public class KarmaMod {
                 }
             }
 
-            // Yüksek Karma Pasif Kaçışı (Mob Navigasyonu Mob sınıfı üzerinden güvenli çağrılır)
             if (karmaBar >= 70) {
                 var nearbyAnimals = player.level().getEntitiesOfClass(Mob.class, player.getBoundingBox().inflate(8.0),
                     e -> e instanceof Animal || e instanceof Villager);
@@ -117,7 +115,6 @@ public class KarmaMod {
         activeScenarioOriginalMob = player.getType().getDescriptionId();
         
         int scenario = random.nextInt(4);
-        // Doğru sunucu seviyesi (ServerLevel) erişimi player.serverLevel() ile sağlanır
         ServerLevel level = player.serverLevel();
         
         if (scenario == 0) {
@@ -260,5 +257,5 @@ public class KarmaMod {
             }
         }
     }
-                                     }
-                                    
+        }
+                
