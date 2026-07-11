@@ -1,4 +1,4 @@
-package com.karmamod;
+
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.resources.ResourceLocation;
