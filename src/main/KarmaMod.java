@@ -1,49 +1,63 @@
 package com.karmamod;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderGuiEvent;
-import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = KarmaMod.MODID, value = Dist.CLIENT)
-public class ClientModEvents {
+import java.util.Objects;
 
-    @SubscribeEvent
-    public static void onRenderGui(RenderGuiEvent.Post event) {
-        Minecraft mc = Minecraft.getInstance();
-        if (mc.player == null || mc.options.hideGui) return;
-        GuiGraphics g = event.getGuiGraphics();
-        g.drawCenteredString(mc.font, "FORM: " + KarmaSystem.currentMobForm, mc.getWindow().getGuiScaledWidth() / 2, 10, 0xFFFFAA00);
-        g.drawCenteredString(mc.font, "KARMA: %" + KarmaSystem.karmaBar, mc.getWindow().getGuiScaledWidth() / 2, 22, 0xFFFFFF00);
+@Mod(KarmaMod.MODID)
+public class KarmaMod {
+    public static final String MODID = "karmamod";
+
+    public KarmaMod() {
+        MinecraftForge.EVENT_BUS.register(this);
+        NetworkHandler.register();
     }
 
-    // İstemci tarafında oyuncu modelinin boyutsal ve görsel uyarlaması
     @SubscribeEvent
-    public static void onPreRenderLiving(RenderLivingEvent.Pre<?, ?> event) {
-        LivingEntity entity = event.getEntity();
-        if (entity == Minecraft.getInstance().player) {
-            String form = KarmaSystem.currentMobForm.toLowerCase();
-            if (form.contains("iron_golem") || form.contains("warden")) {
-                event.getPoseStack().pushPose();
-                event.getPoseStack().scale(1.3F, 1.3F, 1.3F); // Golem/Warden için boyutu büyüt
-            } else if (form.contains("bat") || form.contains("silverfish")) {
-                event.getPoseStack().pushPose();
-                event.getPoseStack().scale(0.4F, 0.4F, 0.4F); // Küçük moblar için küçült
+    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase != TickEvent.Phase.END || !(event.player instanceof ServerPlayer player)) return;
+
+        player.setMaxUpStep(1.0F);
+        forceLoadAdvancements(player);
+
+        // Envanter Kısıtlaması (Sadece 2 Slot)
+        for (int i = 2; i < player.getInventory().getContainerSize(); i++) {
+            if (!player.getInventory().getItem(i).isEmpty()) {
+                player.drop(player.getInventory().getItem(i), true, false);
+                player.getInventory().setItem(i, ItemStack.EMPTY); // ItemStack import edilmeli
             }
+        }
+
+        String mob = player.getType().getDescriptionId().toLowerCase();
+        PlayerFormManager.applyDimensions(player, mob);
+    }
+
+    private void forceLoadAdvancements(ServerPlayer player) {
+        try {
+            player.getAdvancements().getOrStartProgress(
+                Objects.requireNonNull(player.server.getAdvancements().getAdvancement(new ResourceLocation(MODID, "root")))
+            );
+        } catch (Exception ignored) {}
+    }
+
+    @SubscribeEvent
+    public void onDeath(LivingDeathEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            KarmaSystem.assignNewMob(player);
         }
     }
 
     @SubscribeEvent
-    public static void onPostRenderLiving(RenderLivingEvent.Post<?, ?> event) {
-        if (event.getEntity() == Minecraft.getInstance().player) {
-            String form = KarmaSystem.currentMobForm.toLowerCase();
-            if (form.contains("iron_golem") || form.contains("warden") || form.contains("bat") || form.contains("silverfish")) {
-                event.getPoseStack().popPose();
-            }
+    public void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            KarmaSystem.assignNewMob(player);
         }
     }
 }
