@@ -1,4 +1,4 @@
-package com.karma.karmamod;
+package com.karmamod;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
