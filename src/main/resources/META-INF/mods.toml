@@ -1,12 +1,11 @@
 modLoader="javafml"
 loaderVersion="[47,)"
 license="MIT"
-issueTrackerURL="http://my.issue.tracker/"
 
 [[mods]]
 modId="karmamod"
-version="1.0.0"
 displayName="Karma Mod"
+version="1.0.0"
 authors="Sen"
 description="Karma Modu"
 
